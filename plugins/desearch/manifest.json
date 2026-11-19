@@ -1,0 +1,49 @@
+{
+  "id": "desearch",
+  "description": "Add web search context through the hosted Desearch MCP server",
+  "credentials": {
+    "type": "object",
+    "properties": {
+      "apiKey": {
+        "type": "string",
+        "label": "API Key",
+        "description": "Your Desearch API key (or supply DESEARCH_API_KEY in the hook environment)",
+        "encrypted": true
+      }
+    },
+    "required": ["apiKey"]
+  },
+  "functions": [
+    {
+      "name": "Online Search",
+      "id": "online",
+      "supportedHooks": ["beforeRequestHook"],
+      "type": "transformer",
+      "description": [
+        {
+          "type": "subHeading",
+          "text": "Search the last user message or completion prompt and add titles, URLs and snippets as reference context"
+        }
+      ],
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "numResults": {
+            "type": "integer",
+            "label": "Number of Results",
+            "minimum": 1,
+            "maximum": 10,
+            "default": 5
+          },
+          "timeout": {
+            "type": "integer",
+            "label": "Total MCP timeout (milliseconds)",
+            "minimum": 1,
+            "maximum": 60000,
+            "default": 30000
+          }
+        }
+      }
+    }
+  ]
+}
